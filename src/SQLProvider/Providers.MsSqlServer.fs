@@ -299,12 +299,6 @@ type internal MSSqlServerProvider() =
 
         sb.Clear() |> ignore
         match haspk, pk with
-        | true, [itm] ->
-            ~~(sprintf "INSERT INTO %s (%s) OUTPUT inserted.%s VALUES (%s);"
-                entity.Table.FullName
-                (String.Join(",",columnNames))
-                itm
-                (String.Join(",",values |> Array.map(fun p -> p.ParameterName))))
         | _ -> 
             ~~(sprintf "INSERT INTO %s (%s) VALUES (%s);"
                 entity.Table.FullName
